@@ -16,9 +16,9 @@ const url = migrationUrl();
 
 if (!url) {
   if (process.env.VERCEL_ENV === "production") {
-    throw new Error("No database configured: set DATABASE_URL (and DATABASE_URL_UNPOOLED on Neon).");
+    throw new Error("No database configured: set DATABASE_POOLED_URL and DATABASE_DIRECT_URL.");
   }
-  console.log("db:migrate: no DATABASE_URL set, skipping.");
+  console.log("db:migrate: no database configured, skipping.");
 } else {
   const client = new pg.Client({ connectionString: url });
   await client.connect();

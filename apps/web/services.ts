@@ -15,7 +15,8 @@ function createServices(): Services {
   const services = createMemoryServices({ adminIdentifiers });
   // Waitlist sign-ups go to Postgres when a database is configured
   // (table main.waitlist; schema in packages/adapters-postgres/src/schema.ts).
-  const databaseUrl = process.env.DATABASE_URL;
+  // The app always uses the pooled URL; migrations use the direct one.
+  const databaseUrl = process.env.DATABASE_POOLED_URL;
   if (databaseUrl) services.waitlist = createPostgresWaitlist(createDatabase(databaseUrl).db);
   return services;
 }

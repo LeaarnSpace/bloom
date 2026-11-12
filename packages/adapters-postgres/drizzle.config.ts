@@ -3,11 +3,11 @@ import { loadLocalEnv, migrationUrl } from "./env.ts";
 
 // drizzle-kit config for generating migrations (`pnpm db:generate`) and
 // browsing data (`pnpm db:studio`). Migrations are applied by migrate.ts.
-// Connection: see migrationUrl() in env.ts (direct URL, never Neon's pooler).
+// Connection: DATABASE_DIRECT_URL (see migrationUrl() in env.ts).
 
 loadLocalEnv();
 const url = migrationUrl();
-if (!url) throw new Error("Set DATABASE_URL (see .env.example).");
+if (!url) throw new Error("Set DATABASE_DIRECT_URL (see .env.example).");
 
 export default defineConfig({
   dialect: "postgresql",

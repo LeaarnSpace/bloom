@@ -11,18 +11,21 @@ export function loadLocalEnv(): void {
   }
 }
 
-// The URL to run migrations with, or undefined when no database is configured.
-//
-// Migrations need a direct connection: Neon's pooler runs PgBouncer in
-// transaction mode, which doesn't suit schema changes. So this prefers
-// DATABASE_URL_UNPOOLED (Neon's direct URL; the name the Vercel–Neon integration
-// sets) and falls back to DATABASE_URL where there's only one (local Postgres).
+// The URL to run migrations with: DATABASE_DIRECT_URL, or undefined when no
+// database is configured. Migrations need a direct connection: Neon's pooler
+// runs PgBouncer in transaction mode, which doesn't suit schema changes. The app
+// itself uses DATABASE_POOLED_URL.
 export function migrationUrl(): string | undefined {
-  const direct = process.env.DATABASE_URL_UNPOOLED;
-  if (direct) return direct;
-  const url = process.env.DATABASE_URL;
-  if (url && new URL(url).hostname.includes("-pooler.")) {
-    throw new Error("DATABASE_URL is Neon's pooled URL. Set DATABASE_URL_UNPOOLED to the direct URL for migrations.");
+  const direct = process.env.DATABASE_DIRECT_URL;
+  if (direct) {
+    if (new URL(direct).hostname.includes("-pooler.")) {
+      throw new Error('DATABASE_DIRECT_URL is a Neon pooled URL (host contains "-pooler"). Use the direct URL.');
+    }
+    return direct;
   }
-  return url || undefined;
+  // The app has a database but it couldn't be migrated: fail rather than ship that.
+  if (process.env.DATABASE_POOLED_URL) {
+    throw new Error("DATABASE_POOLED_URL is set but DATABASE_DIRECT_URL isn't. Migrations need the direct URL.");
+  }
+  return undefined;
 }

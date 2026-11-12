@@ -6,10 +6,10 @@ import { createPostgresWaitlist } from "./waitlist";
 
 // Integration tests against a migrated database. Disabled for now (user
 // request, 2026-11-12: no tests run against any database). To run them, change
-// describe.skip to describe and set DATABASE_URL. Each test runs in a
+// describe.skip to describe and set DATABASE_POOLED_URL. Each test runs in a
 // transaction that is rolled back, so nothing is left behind.
 describe.skip("postgres waitlist", () => {
-  const { db, close } = createDatabase(process.env.DATABASE_URL!);
+  const { db, close } = createDatabase(process.env.DATABASE_POOLED_URL!);
   afterAll(close);
 
   class Rollback extends Error {}
