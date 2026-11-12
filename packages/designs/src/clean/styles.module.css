@@ -1,0 +1,365 @@
+/* Design B — "Clean". Figma node 1847:38920, 1440 wide.
+   Header and hero live in shared/masthead.
+   Sizes in rem (Figma px / 16); hairlines in px. Breakpoints in em. */
+
+.page {
+  --ink: #0e1b33;
+  --muted: #4d5c73;
+  --line: #dbe3ed;
+  --link: #144a9c;
+  --accent: #e8f0fa;
+  --button: #305dab;
+  --field: #f5f7fb;
+  --endorsement: #004bad;
+  --masthead-rule: var(--line);
+
+  min-height: 100vh;
+  background: #ffffff;
+  color: var(--ink);
+  font-family: var(--font-manrope), system-ui, sans-serif;
+}
+
+/* Zero specificity so section rules below can set margins. */
+:where(.page) :where(h1, h2, h3, p, ul) {
+  margin: 0;
+}
+
+/* Categories */
+
+.categories {
+  padding: 4.875rem 0 3.1875rem;
+}
+
+.sectionTitle {
+  min-height: 5.25rem;
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.25rem, 1rem + 3.5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.0714;
+  letter-spacing: -0.02em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 12.375rem;
+  padding: 2.375rem 1.25rem 0.5rem 1rem;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 0.375rem;
+}
+
+.specialNeedsGrid .card {
+  height: auto;
+}
+
+.accent {
+  position: absolute;
+  top: 0.9375rem;
+  left: 0.9375rem;
+  width: 2.375rem;
+  height: 0.3125rem;
+  background: var(--accent);
+  border-radius: 0.125rem;
+}
+
+.cardCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 7.625rem;
+  max-width: 15.625rem;
+}
+
+.cardTitle {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.625rem;
+  letter-spacing: -0.005em;
+}
+
+.cardText {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+}
+
+.explore {
+  height: 1.1875rem;
+  color: var(--link);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: normal;
+  white-space: pre;
+}
+
+/* Hover: Figma's hidden 22px dark square at the card centre grows to cover the card. */
+.comingSoonBackdrop {
+  background-color: rgb(22 22 22 / 0.9);
+  opacity: 0;
+  clip-path: inset(calc(50% - 11px));
+}
+
+@media (hover: hover) {
+  .card:hover .comingSoonBackdrop {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+}
+
+.specialNeeds {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 4.5rem;
+}
+
+.specialNeedsHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.specialNeedsTitle {
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.625rem;
+  letter-spacing: -0.005em;
+}
+
+.specialNeedsText {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+}
+
+/* Email sign-up */
+
+.signup {
+  padding: 2.8125rem 0 6.25rem;
+}
+
+.signupInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.signupCopy {
+  max-width: 43.75rem;
+  min-height: 2.875rem;
+  color: #55554d;
+  font-size: 1.0625rem;
+  line-height: normal;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 18.75rem;
+  height: 3.25rem;
+  padding: 0 1rem;
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 0.375rem;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: normal;
+}
+
+.input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.button {
+  box-sizing: border-box;
+  width: 9.75rem;
+  height: 3.25rem;
+  padding: 0 1.375rem;
+  background: var(--button);
+  border: 0;
+  border-radius: 0.375rem;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: normal;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.confirmation {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;
+  font-size: 1.0625rem;
+  line-height: normal;
+  text-align: center;
+}
+
+/* Footer */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  padding-bottom: 3.1875rem;
+}
+
+.footerRule {
+  height: 1px;
+  background: var(--line);
+}
+
+.footerContent {
+  display: flex;
+  align-items: center;
+  gap: 29.125rem;
+  min-height: 8.125rem;
+  overflow: hidden;
+}
+
+.footerBrand {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 2rem;
+  width: 25rem;
+}
+
+.lockupName {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 2.125rem;
+  letter-spacing: -0.02em;
+}
+
+.lockupEndorsement {
+  color: var(--endorsement);
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.12em;
+}
+
+.footerTagline {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: normal;
+}
+
+.footerNav {
+  display: flex;
+  flex: none;
+  gap: 4.6875rem;
+  padding-top: 0.625rem;
+}
+
+.footerColumn {
+  width: 11.25rem;
+}
+
+.footerHeading {
+  margin-bottom: 1.125rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 0.875rem;
+  letter-spacing: 0.1em;
+}
+
+.footerLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: normal;
+}
+
+.footerLinks li {
+  height: 1.25rem;
+}
+
+.footerDivider {
+  height: 1px;
+  background: var(--line);
+}
+
+.copyright {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+}
+
+/* Smaller screens. Figma has desktop (1440) only; these keep the same look without breaking. */
+
+@media (max-width: 79.9375em) {
+  .footerContent {
+    justify-content: space-between;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 63.9375em) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footerContent {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card {
+    height: auto;
+  }
+
+  .form {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .input,
+  .button {
+    width: 100%;
+  }
+
+  .footerBrand {
+    width: auto;
+  }
+
+  .footerNav {
+    gap: 2rem;
+  }
+
+  .footerColumn {
+    width: auto;
+  }
+}

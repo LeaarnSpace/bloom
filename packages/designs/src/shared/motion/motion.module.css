@@ -1,0 +1,86 @@
+/* Entrance and scroll-reveal motion shared by every design.
+   Timing and easing follow the Horizone reference (user request, 2026-11-12):
+   one soft ease-out for everything, things rise into place and fade in.
+
+   Rules only apply while <html data-motion> is set. The boot script sets it
+   before first paint, and only when the visitor allows motion, so without JS
+   or with reduced motion everything simply shows.
+
+   Only `opacity`, `translate` and `scale` animate. They never change layout, so
+   when an animation ends every element sits exactly where it would without it.
+   Keyframes give only the starting point ("from") and fill "backwards", so
+   after the animation the element's own styles (including hover) apply again. */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+
+@keyframes riseWord {
+  from {
+    opacity: 0;
+    translate: 0 1.75rem;
+  }
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    translate: 0 -0.75rem;
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    scale: 1.06;
+  }
+}
+
+/* A word inside a heading, so it can move on its own. Line breaks are unchanged:
+   words stay separated by ordinary spaces. */
+.word {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Page load: header and hero. Plays once, from first paint. ScrollReveal sets
+     data-motion-intro-done when it has finished, which retires these rules so
+     nothing can replay later (for example when React reuses an element). */
+
+  :global(html[data-motion]:not([data-motion-intro-done])) .introDrop {
+    animation: drop 0.8s cubic-bezier(0.2, 0.7, 0.15, 1) var(--motion-delay, 0ms) backwards;
+  }
+
+  :global(html[data-motion]:not([data-motion-intro-done])) .introRise {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.15, 1) var(--motion-delay, 0ms) backwards;
+  }
+
+  :global(html[data-motion]:not([data-motion-intro-done])) .introSettle {
+    animation: settle 1.6s cubic-bezier(0.2, 0.7, 0.15, 1) var(--motion-delay, 0ms) backwards;
+  }
+
+  :global(html[data-motion]:not([data-motion-intro-done])) .introWords .word {
+    animation: riseWord 1s cubic-bezier(0.2, 0.7, 0.15, 1) calc(var(--motion-delay, 0ms) + var(--i) * 50ms) backwards;
+  }
+
+  /* Scroll: hidden until ScrollReveal marks the element. data-revealed is
+     "animate" when it scrolls into view, then "done" once finished; "instant"
+     when it was already on screen as it appeared (for example straight after
+     switching designs). Only "animate" animates, so nothing replays. */
+
+  :global(html[data-motion]) .reveal:not([data-revealed]),
+  :global(html[data-motion]) .revealWords:not([data-revealed]) .word {
+    opacity: 0;
+  }
+
+  :global(html[data-motion]) .reveal[data-revealed="animate"] {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.15, 1) var(--motion-delay, 0ms) backwards;
+  }
+
+  :global(html[data-motion]) .revealWords[data-revealed="animate"] .word {
+    animation: riseWord 1s cubic-bezier(0.2, 0.7, 0.15, 1) calc(var(--motion-delay, 0ms) + var(--i) * 50ms) backwards;
+  }
+}

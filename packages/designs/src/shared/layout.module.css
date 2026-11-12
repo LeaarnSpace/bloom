@@ -1,0 +1,14 @@
+/* Page content column shared by every design (and the shared masthead), so
+   content edges line up when visitors switch designs. 1240 wide at 1440. */
+
+.container {
+  box-sizing: border-box;
+  width: min(77.5rem, 100% - 5rem);
+  margin-inline: auto;
+}
+
+@media (max-width: 47.9375em) {
+  .container {
+    width: calc(100% - 2rem);
+  }
+}

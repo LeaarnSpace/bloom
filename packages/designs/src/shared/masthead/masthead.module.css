@@ -1,0 +1,121 @@
+/* Shared header + hero. Same box at every width in every design, so nothing
+   moves when switching. Sizes from design B at 1440 (Figma px / 16). */
+
+/* Header: 84px, logo row starts 21px down. */
+
+.header {
+  box-sizing: border-box;
+  height: 5.25rem;
+  padding-top: 1.3125rem;
+  border-bottom: 1px solid var(--masthead-rule, transparent);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Wraps the header actions so they can animate (the toggle's form is display: contents). */
+.actions {
+  display: flex;
+}
+
+.logo {
+  display: block;
+  width: fit-content;
+  height: 2.5rem;
+  color: var(--ink);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration: none;
+}
+
+/* Hero: 366px tall, copy and artwork start 67px down. */
+
+.heroInner {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 22.875rem;
+  padding-top: 4.1875rem;
+}
+
+.heroCopy {
+  width: 48.75rem;
+}
+
+.headline {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(3rem, 1.4rem + 5.4vw, 6rem);
+  font-weight: 300;
+  line-height: 1.0208;
+  letter-spacing: -0.03em;
+}
+
+.headline strong {
+  font-weight: 600;
+}
+
+.lead {
+  max-width: 43.75rem;
+  margin: 1.5625rem 0 0;
+  color: var(--muted);
+  font-size: 1.0625rem;
+  line-height: normal;
+}
+
+.illustration {
+  position: absolute;
+  top: 4.1875rem;
+  left: 50.5rem;
+}
+
+@media (max-width: 79.9375em) {
+  .heroInner {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .heroCopy {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  /* Back into the flow. Must stay positioned: the artwork's layers are placed inside it. */
+  .illustration {
+    position: relative;
+    top: auto;
+    left: auto;
+    zoom: 0.8;
+  }
+}
+
+@media (max-width: 63.9375em) {
+  .illustration {
+    zoom: 0.6;
+  }
+}
+
+@media (max-width: 47.9375em) {
+  .heroInner {
+    flex-direction: column;
+    padding-top: 2rem;
+  }
+
+  /* Stacked layout: artwork above the headline, centred. */
+  .illustration {
+    order: -1;
+    align-self: center;
+    zoom: 0.67;
+  }
+
+  .headlineBreak {
+    display: none;
+  }
+}

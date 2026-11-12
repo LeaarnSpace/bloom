@@ -1,0 +1,118 @@
+/* Hover overlay for category cards. Figma: card swaps to its "Coming soon" variant
+   with Smart Animate, ease-out 150 ms; the label and shapes then fade in with the
+   delays from the "Entrance" motion (200 ms each, ease-out). */
+
+.overlay {
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);
+
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  transition-property: clip-path, background-color, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: var(--ease-out);
+}
+
+/* 252 x 79 group, centred on the card (Figma: "Frame 1984078274"). */
+.content {
+  position: absolute;
+  top: calc(50% + 0.5px);
+  left: 50%;
+  width: 15.75rem;
+  height: 4.9375rem;
+  transform: translate(-50%, -50%);
+}
+
+.shapes {
+  position: absolute;
+  top: 0.5rem;
+  left: 2.5625rem;
+  width: 2.5557rem;
+  height: 3.139rem;
+}
+
+.shape,
+.label {
+  opacity: 0;
+  transition: opacity 150ms var(--ease-out);
+}
+
+.shape {
+  position: absolute;
+  display: block;
+}
+
+.circle {
+  top: 0;
+  left: 1.5556rem;
+  width: 1rem;
+  height: 1rem;
+}
+
+.square {
+  top: 0.6251rem;
+  left: 0.1807rem;
+  width: 1rem;
+  height: 1rem;
+  background: #e4f7ee;
+  border-radius: 0.125rem;
+  rotate: -29.29deg;
+}
+
+.triangle {
+  top: 1.9478rem;
+  left: 0.8731rem;
+  width: 0.9596rem;
+  height: 0.9596rem;
+  rotate: -52.25deg;
+}
+
+.label {
+  position: absolute;
+  top: 1.53125rem;
+  left: 4.3681rem;
+  color: #ffffff;
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.875rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* Only on devices that can hover; touch screens keep the plain card. */
+@media (hover: hover) {
+  :hover > .overlay .shape,
+  :hover > .overlay .label {
+    opacity: 1;
+    transition-duration: 200ms;
+  }
+
+  :hover > .overlay .label {
+    transition-delay: 152ms;
+  }
+
+  :hover > .overlay .triangle {
+    transition-delay: 152ms;
+  }
+
+  :hover > .overlay .square {
+    transition-delay: 194ms;
+  }
+
+  :hover > .overlay .circle {
+    transition-delay: 394ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .shape,
+  .label {
+    transition: none !important;
+  }
+}

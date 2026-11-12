@@ -1,0 +1,12 @@
+/* Footer links look like the surrounding text (as drawn in Figma), with an
+   underline on hover and keyboard focus so they read as links. */
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration: underline;
+}
