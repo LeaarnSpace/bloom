@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { getCurrentUser } from "@/lib/auth";
+import { siteIcons } from "@/lib/brand-icon";
 import { signOut } from "./dashboard/actions";
 import s from "./_components/dashboard.module.css";
 
 export const metadata: Metadata = {
   title: "Bloom for providers",
+  icons: siteIcons,
 };
 
 // The dashboard has one fixed design; it does not use the switchable site designs.

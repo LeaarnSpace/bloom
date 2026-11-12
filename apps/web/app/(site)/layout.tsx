@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { motionBootScript, ScrollReveal } from "@bloom/designs";
 import { getActiveDesign } from "@bloom/designs/server";
 import { Tracker } from "@bloom/tracking/client";
+import { siteIcons } from "@/lib/brand-icon";
 import { siteMode } from "@/lib/site-mode";
 import { setDesign } from "./actions";
 import { manrope } from "./fonts";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   title: "Bloom — Find what helps your child bloom",
   description:
     "Explore how children grow and learn. Find programmes, providers and available dates for your family in Nigeria.",
+  icons: siteIcons,
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
